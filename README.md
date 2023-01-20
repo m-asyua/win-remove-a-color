@@ -1,4 +1,4 @@
-# win-remove-a-color-v1.1
+# win-remove-a-color
 
 A tool to be transparent on a window in Windows10/11.
 
