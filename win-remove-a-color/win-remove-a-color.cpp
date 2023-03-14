@@ -1,4 +1,4 @@
-﻿
+
 
 
 #include <windows.h>
@@ -146,7 +146,7 @@ void my_save() {
 	WriteFile(hFile, buf, lstrlen(buf) * sizeof(TCHAR), &WriteSize, NULL);
 	CloseHandle(hFile);
 
-	SetWindowText(label4, _T("内容を保存しました"));
+	SetWindowText(label4, _T("settings were saved"));
 
 
 }
@@ -268,12 +268,12 @@ bool my_load() {
 
 
 	if (result == 1) {
-		SetWindowText(label3, TEXT("同じ名前のウィンドウが見つかりました（実行可能）"));
-		SetWindowText(label5, _T("内容を呼び出しました"));
+		SetWindowText(label3, TEXT("A window with the same name was found (executable)"));
+		SetWindowText(label5, _T("settings were loaded"));
 		return true;
 	}
 	else {
-		SetWindowText(label3, TEXT("同じ名前のウィンドウが見つかりませんでした（実行不可）"));
+		SetWindowText(label3, TEXT("Window with the same name was not found (not executable)"));
 		return false;
 	}
 
@@ -300,10 +300,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 	HDC hdc;
 	PAINTSTRUCT ps;
 
-	TCHAR str0[256] = _T("1.透明にしたいウィンドウを選んでください");
-	TCHAR str1[256] = _T("  ※ブラウザ等ではハードウェアアクセラレーションは使用しない設定にしておいてください");
-	TCHAR str2[256] = _T("2.透明にしたい色を指定してください(0-255)");
-	TCHAR str3[256] = _T("3.実行");
+	TCHAR str0[256] = _T("1. Select a window you want to make transparent");
+	TCHAR str1[256] = _T("* Please set your browser not to use hardware acceleration.");
+	TCHAR str2[256] = _T("2. Specify a color you want to make transparent (0-255)");
+	TCHAR str3[256] = _T("3. Run");
 	TCHAR str_r[5] = _T("R");
 	TCHAR str_g[5] = _T("G");
 	TCHAR str_b[5] = _T("B");
@@ -410,28 +410,28 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	g_str = CreateWindow(TEXT("EDIT"), TEXT("0"), WS_CHILD | WS_VISIBLE | ES_RIGHT | WS_BORDER, 150, 120, 60, 30, hwnd, (HMENU)EDIT_G, hInstance, NULL);
 	b_str = CreateWindow(TEXT("EDIT"), TEXT("0"), WS_CHILD | WS_VISIBLE | ES_RIGHT | WS_BORDER, 250, 120, 60, 30, hwnd, (HMENU)EDIT_B, hInstance, NULL);
 
-	CreateWindow(TEXT("BUTTON"), TEXT("ウィンドウ情報を再読み込み"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 550, 120, 220, 40, hwnd, (HMENU)BUTTON_ID_REFRESH, hInstance, NULL);
+	CreateWindow(TEXT("BUTTON"), TEXT("Reload window information"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 550, 120, 220, 40, hwnd, (HMENU)BUTTON_ID_REFRESH, hInstance, NULL);
 
-	CreateWindow(TEXT("BUTTON"), TEXT("実行"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 190, 100, 50, hwnd, (HMENU)BUTTON_ID_EXE, hInstance, NULL);
-	CreateWindow(TEXT("BUTTON"), TEXT("リセット"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 200, 190, 100, 50, hwnd, (HMENU)BUTTON_ID_RESET, hInstance, NULL);
+	CreateWindow(TEXT("BUTTON"), TEXT("run"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 190, 100, 50, hwnd, (HMENU)BUTTON_ID_EXE, hInstance, NULL);
+	CreateWindow(TEXT("BUTTON"), TEXT("reset"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 200, 190, 100, 50, hwnd, (HMENU)BUTTON_ID_RESET, hInstance, NULL);
 
 	label = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE, 30, 250, 700, 35, hwnd, NULL, hInstance, NULL);
 
-	CreateWindow(TEXT("BUTTON"), TEXT("上記の内容を保存(SAVE)"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 290, 250, 35, hwnd, (HMENU)BUTTON_ID_SAVE, hInstance, NULL);
+	CreateWindow(TEXT("BUTTON"), TEXT("Save the above settings (SAVE)"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 290, 250, 35, hwnd, (HMENU)BUTTON_ID_SAVE, hInstance, NULL);
 
 	label4 = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE, 320, 290, 300, 35, hwnd, NULL, hInstance, NULL);
 
-	CreateWindow(TEXT("BUTTON"), TEXT("以前に保存した内容を呼び出し(LOAD)"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 10, 340, 290, 35, hwnd, (HMENU)BUTTON_ID_LOAD, hInstance, NULL);
+	CreateWindow(TEXT("BUTTON"), TEXT("Recall previously saved settings (LOAD)"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 10, 340, 290, 35, hwnd, (HMENU)BUTTON_ID_LOAD, hInstance, NULL);
 
 	label5 = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE, 320, 340, 300, 35, hwnd, NULL, hInstance, NULL);
 
 	label2 = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE, 30, 380, 700, 35, hwnd, NULL, hInstance, NULL);
 	label3 = CreateWindow(TEXT("STATIC"), NULL, WS_CHILD | WS_VISIBLE, 30, 420, 430, 35, hwnd, NULL, hInstance, NULL);
 
-	CreateWindow(TEXT("BUTTON"), TEXT("呼び出し内容を実行"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 470, 420, 160, 35, hwnd, (HMENU)BUTTON_ID_LOAD_EXE, hInstance, NULL);
+	CreateWindow(TEXT("BUTTON"), TEXT("run settings"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 470, 420, 160, 35, hwnd, (HMENU)BUTTON_ID_LOAD_EXE, hInstance, NULL);
 
 	check = CreateWindow(
-		TEXT("BUTTON"), TEXT("このプログラムを起動するたびに，保存内容を自動で実行するようにする->"),
+		TEXT("BUTTON"), TEXT("Automatically run the saved settings every time you start this program ->"),
 		WS_CHILD | WS_VISIBLE | BS_CHECKBOX | BS_LEFTTEXT | BS_AUTOCHECKBOX,
 		20, 480, 580, 30,
 		hwnd, (HMENU)BUTTON_ID_CHECKBOX, hInstance, NULL
